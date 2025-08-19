@@ -1,16 +1,13 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { cn, scrollToElement } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
+// SIMPLIFIED navigation to match reference exactly
 const navigation = [
-  { id: "home", label: "Home", href: "#hero" },
-  { id: "products", label: "Products", href: "#products" },
-  { id: "features", label: "Features", href: "#features" },
-  { id: "how-it-works", label: "How It Works", href: "#how-it-works" },
-  { id: "architecture", label: "Architecture", href: "#architecture" },
+  { id: "solutions", label: "Solutions", href: "#solutions" },
+  { id: "industries", label: "Industries", href: "#industries" },
+  { id: "about", label: "About", href: "#about" },
 ];
 
 export function Header() {
@@ -28,107 +25,90 @@ export function Header() {
 
   const handleNavClick = (href: string) => {
     const elementId = href.replace("#", "");
-    scrollToElement(elementId);
+    const element = document.getElementById(elementId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
     setIsMobileMenuOpen(false);
   };
 
   return (
     <header
-      className={cn(
-        "top-0 right-0 left-0 z-50 fixed transition-all duration-300",
-        isScrolled
-          ? "bg-dark-100/90 backdrop-blur-custom border-b border-white/10"
-          : "bg-transparent"
-      )}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? "bg-black/90 backdrop-blur-sm" : "bg-transparent"
+      }`}
     >
       <nav className="container-custom">
-        <div className="flex justify-between items-center h-16 lg:h-20">
-          {/* Logo */}
-          <div className="flex items-center">
-            <div className="flex items-center space-x-2">
-              <div className="flex justify-center items-center bg-gradient-primary rounded-lg w-8 h-8">
-                <span className="font-bold text-white text-lg">∞</span>
-              </div>
-              <span className="font-bold text-white text-xl">bicarapintar</span>
+        <div className="flex justify-between items-center py-4">
+          {/* Logo - EXACT match to reference */}
+          <div className="flex items-center space-x-2">
+            <div className="flex justify-center items-center bg-white rounded-lg w-8 h-8">
+              <span className="font-bold text-black text-lg">∞</span>
             </div>
+            <span className="font-bold text-white text-xl">bicarapintar</span>
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-8">
+          {/* Desktop Navigation - SIMPLIFIED */}
+          <div className="hidden md:flex items-center space-x-8">
             {navigation.map((item) => (
               <button
                 key={item.id}
                 onClick={() => handleNavClick(item.href)}
-                className="font-medium text-gray-300 hover:text-white transition-colors duration-200"
+                className="font-medium text-white hover:text-purple-300 transition-colors"
               >
                 {item.label}
               </button>
             ))}
-          </div>
 
-          {/* CTA Buttons */}
-          <div className="hidden lg:flex items-center space-x-4">
-            <Button
-              variant="outline"
-              size="sm"
-              href="#contact"
+            {/* Contact Us Button - EXACT purple #6A2FF7 */}
+            <button
+              className="px-6 py-2 rounded-lg font-semibold text-white hover:scale-105 transition-all duration-300"
+              style={{ backgroundColor: "#6A2FF7" }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.backgroundColor = "#5A1FE7")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.backgroundColor = "#6A2FF7")
+              }
               onClick={() => handleNavClick("#contact")}
             >
-              Contact Sales
-            </Button>
-            <Button
-              variant="primary"
-              size="sm"
-              glow
-              href="https://platform.bicarapintar.ai"
-              external
-            >
-              Get Started
-            </Button>
+              Contact Us
+            </button>
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2 text-white"
+            className="md:hidden p-2 text-white"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle mobile menu"
+            aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu - SIMPLIFIED */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden top-full right-0 left-0 absolute bg-dark-100/95 backdrop-blur-custom border-white/10 border-b">
-            <div className="space-y-4 px-4 py-6">
-              {navigation.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => handleNavClick(item.href)}
-                  className="block py-2 w-full font-medium text-gray-300 hover:text-white text-left transition-colors duration-200"
-                >
-                  {item.label}
-                </button>
-              ))}
+          <div className="md:hidden top-full right-0 left-0 absolute bg-black/95 backdrop-blur-sm border-white/10 border-t">
+            <div className="py-6 container-custom">
+              <div className="flex flex-col space-y-4">
+                {navigation.map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => handleNavClick(item.href)}
+                    className="py-2 font-medium text-white hover:text-purple-300 text-left transition-colors"
+                  >
+                    {item.label}
+                  </button>
+                ))}
 
-              <div className="space-y-3 pt-4">
-                <Button
-                  variant="outline"
-                  size="md"
-                  className="w-full"
+                {/* Mobile Contact Button */}
+                <button
+                  className="mt-4 px-6 py-3 rounded-lg w-fit font-semibold text-white transition-all duration-300"
+                  style={{ backgroundColor: "#6A2FF7" }}
                   onClick={() => handleNavClick("#contact")}
                 >
-                  Contact Sales
-                </Button>
-                <Button
-                  variant="primary"
-                  size="md"
-                  className="w-full"
-                  href="https://platform.bicarapintar.ai"
-                  external
-                >
-                  Get Started
-                </Button>
+                  Contact Us
+                </button>
               </div>
             </div>
           </div>
@@ -138,33 +118,5 @@ export function Header() {
   );
 }
 
-// Floating Header for better UX
-export function FloatingHeader() {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsVisible(window.scrollY > 100);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  if (!isVisible) return null;
-
-  return (
-    <div className="lg:hidden right-6 bottom-6 z-50 fixed">
-      <Button
-        variant="primary"
-        size="lg"
-        glow
-        className="shadow-2xl rounded-full"
-        href="https://platform.bicarapintar.ai"
-        external
-      >
-        Get Started
-      </Button>
-    </div>
-  );
-}
+// Remove FloatingHeader - not in reference design
+export { Header as default };

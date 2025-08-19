@@ -237,10 +237,10 @@ export function HowItWorksSection() {
                   external
                   rightIcon={<ArrowRight size={20} />}
                 >
-                  Start Free Trial
+                  Schedule Demo
                 </Button>
                 <Button variant="outline" size="lg" href="#demo">
-                  Schedule Demo
+                  Contact Us
                 </Button>
               </div>
             </div>

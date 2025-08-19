@@ -11,8 +11,9 @@
   }
   
   body {
-    @apply bg-dark-100 font-sans text-white antialiased;
-    background: linear-gradient(135deg, #1a1a1a 0%, #262626 100%);
+    /* CRITICAL FIX: Pure black background to match reference */
+    @apply bg-black font-sans text-white antialiased;
+    background: #000000; /* REMOVED gradient, pure black only */
     min-height: 100vh;
   }
 
@@ -22,28 +23,30 @@
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-dark-200;
+    @apply bg-gray-900; /* Fixed: was bg-dark-200 */
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-primary-600 rounded-full;
+    @apply bg-purple-600 rounded-full; /* Keep purple #6A2FF7 */
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-primary-500;
+    @apply bg-purple-500;
   }
 }
 
 @layer components {
-  /* Gradient Border Card Pattern */
+  /* Gradient Border Card Pattern - EXACT MATCH TO REFERENCE */
   .gradient-card {
     @apply relative rounded-2xl overflow-hidden;
-    background: linear-gradient(145deg, rgba(106, 47, 247, 0.1) 0%, rgba(26, 26, 26, 0.9) 100%);
+    /* FIXED: Pure black background, no gradients */
+    background: #000000;
   }
 
   .gradient-card::before {
     content: '';
     @apply absolute inset-0 p-[1px] rounded-2xl;
+    /* EXACT purple gradient border from reference */
     background: linear-gradient(135deg, #6A2FF7, #843dff, #2dd4bf);
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask-composite: exclude;
@@ -53,25 +56,44 @@
 
   .gradient-card-content {
     @apply z-10 relative p-6 rounded-2xl w-full h-full;
-    background: rgba(26, 26, 26, 0.95);
+    /* FIXED: Pure black background */
+    background: #000000;
   }
 
-  /* Button Styles */
+  /* Reference Design Feature Buttons - NEW PATTERN */
+  .feature-button {
+    @apply px-6 py-3 rounded-full font-medium text-white transition-all duration-300;
+    background: transparent;
+    border: 2px solid #6A2FF7;
+  }
+
+  .feature-button:hover {
+    background: #6A2FF7;
+    transform: translateY(-2px);
+  }
+
+  /* Button Styles - EXACT PURPLE */
   .btn-primary {
     @apply px-6 py-3 rounded-xl font-semibold text-white transition-all duration-300;
-    background: linear-gradient(135deg, #6A2FF7 0%, #843dff 100%);
+    background: #6A2FF7; /* EXACT color from reference */
   }
 
   .btn-primary:hover {
     @apply scale-105 transform;
+    background: #5A1FE7; /* Slightly darker on hover */
     box-shadow: 0 10px 30px rgba(106, 47, 247, 0.4);
   }
 
   .btn-secondary {
-    @apply hover:bg-primary-600 px-6 py-3 border border-primary-600 rounded-xl font-semibold text-white transition-all duration-300;
+    @apply bg-white px-6 py-3 border border-white rounded-xl font-semibold text-black transition-all duration-300;
   }
 
-  /* Text Gradients */
+  .btn-secondary:hover {
+    @apply scale-105 transform;
+    background: #f0f0f0;
+  }
+
+  /* Text Gradients - Keep exact purple scheme */
   .text-gradient {
     background: linear-gradient(135deg, #6A2FF7 0%, #843dff 50%, #2dd4bf 100%);
     -webkit-background-clip: text;
@@ -79,13 +101,13 @@
     background-clip: text;
   }
 
-  /* Section Spacing */
+  /* Section Spacing - Match reference */
   .section-padding {
-    @apply py-16 md:py-24 lg:py-32;
+    @apply py-16 md:py-24;
   }
 
   .container-custom {
-    @apply mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl;
+    @apply mx-auto px-6 max-w-7xl;
   }
 
   /* Animation Classes */
@@ -97,14 +119,27 @@
     @apply opacity-100 translate-y-0;
   }
 
-  /* Floating Animation */
-  .float-animation {
-    animation: float 6s ease-in-out infinite;
+  /* Phone Mockup Styles - NEW FOR REFERENCE DESIGN */
+  .phone-mockup {
+    @apply relative bg-gray-900 shadow-2xl p-2 rounded-3xl;
   }
 
-  /* Glow Effect */
-  .glow-effect {
-    filter: drop-shadow(0 0 20px rgba(106, 47, 247, 0.3));
+  .phone-screen {
+    @apply bg-white rounded-2xl w-full h-full overflow-hidden;
+  }
+
+  /* Chat Message Styles - NEW FOR HERO SECTION */
+  .chat-message {
+    @apply p-3 rounded-lg max-w-xs text-sm;
+  }
+
+  .chat-message.user {
+    @apply bg-gray-100 ml-auto text-gray-800;
+  }
+
+  .chat-message.ai {
+    @apply bg-purple-600 mr-auto text-white;
+    background: #6A2FF7;
   }
 }
 
@@ -128,5 +163,16 @@
 
   .no-scrollbar::-webkit-scrollbar {
     display: none;
+  }
+
+  /* Pure black backgrounds - CRITICAL ADDITIONS */
+  .bg-pure-black {
+    background-color: #000000 !important;
+  }
+
+  /* Ensure no gradients interfere */
+  .no-gradient {
+    background-image: none !important;
+    background: #000000 !important;
   }
 }

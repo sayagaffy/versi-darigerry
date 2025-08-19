@@ -32,18 +32,24 @@ export default function HomePage() {
   }, []);
 
   return (
-    <main className="bg-dark-100 min-h-screen">
+    <main className="bg-black min-h-screen">
+      {" "}
+      {/* FIXED: Pure black background */}
       {/* Navigation */}
       <Header />
-
-      {/* Page Sections */}
+      {/* Page Sections - Updated order to match reference */}
       <HeroSection />
+      {/* TODO: Add BicaraChat Key Features section */}
+      {/* <FeaturesSection /> */}
+      {/* TODO: Add From Concept to Transformation section */}
+      {/* <ProcessSection /> */}
+      {/* Existing sections */}
       <ProductsSection />
       <HowItWorksSection />
-
+      {/* TODO: Add Contact section with map */}
+      {/* <ContactSection /> */}
       {/* Footer */}
       <Footer />
-
       {/* Mobile Floating CTA */}
       <FloatingCTA />
     </main>
