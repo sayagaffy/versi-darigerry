@@ -1,69 +1,63 @@
-"use client";
+// src/components/sections/products.tsx - Elegant gradient border design
 
 import React from "react";
-import { ProductCard } from "@/components/ui/card";
-import { Badge, StatusBadge } from "@/components/ui/badge";
+import { Badge } from "@/components/ui/badge";
 import {
   MessageSquare,
   Phone,
-  Camera,
-  Zap,
   Globe,
+  Zap,
   BarChart3,
+  Camera,
 } from "lucide-react";
 
+// Updated products with clean design
 const products = [
   {
     id: "bicarachat",
     name: "BicaraChat",
     description:
       "Autonomous text conversations powered by agentic AI. Handle complex customer queries, bookings, and multi-step workflows without human intervention.",
-    icon: "💬",
-    gradient: "bg-gradient-to-br from-blue-500 to-purple-600",
-    badge: "POPULAR",
-    status: "updated" as const,
+    badge: "MULTI-STEP AI",
+    badgeColor: "bg-blue-600/20 text-blue-300 border-blue-600/30",
     features: [
-      "Smart Q&A with RAG lookup for instant FAQ responses",
-      "Multi-lingual support across 30+ languages",
-      "Rich media: buttons, cards, carousels for engaging interactions",
-      "Autonomous orchestration of multi-step workflows",
-      "API-driven bookings, payments, and complaint resolution",
-      "Omni-channel: WhatsApp, Web, Mobile SDKs",
-      "Real-time analytics and CSAT tracking",
+      "Multi-step conversation workflows with context retention",
+      "Natural language understanding for complex queries", 
+      "Automated booking and reservation management",
+      "Seamless escalation to human agents when needed",
+      "Real-time learning from customer interactions",
+      "Integration with CRM and backend systems",
+      "24/7 autonomous operation with 99.9% uptime",
     ],
   },
   {
-    id: "bicaravoice",
+    id: "bicaravoice", 
     name: "BicaraVoice",
     description:
       "Fully autonomous voice conversations with human-like natural speech. Perfect for call centers, IVR systems, and voice-first experiences.",
-    icon: "🎙️",
-    gradient: "bg-gradient-to-br from-green-500 to-teal-600",
-    badge: "NEW",
-    status: "new" as const,
+    badge: "NATURAL SPEECH",
+    badgeColor: "bg-green-600/20 text-green-300 border-green-600/30", 
     features: [
-      "High-precision speech-to-text with noise filtering",
-      "Natural TTS & voice cloning from 2-minute samples",
-      "Smart IVR navigation and agent routing",
-      "Emotion & sentiment detection for personalized responses",
-      "Bahasa Indonesia and English voice optimization",
-      "Post-call analytics and topic clustering",
+      "Natural speech synthesis with emotional intelligence",
+      "Real-time voice processing and response generation",
+      "Multi-language support with native pronunciation", 
+      "Advanced noise cancellation and audio optimization",
       "Seamless integration with existing phone systems",
+      "Voice biometrics for security and personalization",
+      "Adaptive conversation flows based on caller intent",
     ],
   },
   {
     id: "bicaraimage",
-    name: "BicaraImage",
+    name: "BicaraImage", 
     description:
       "Instant image analysis and automated troubleshooting. AI processes photos to detect issues and execute recovery actions automatically.",
-    icon: "📸",
-    gradient: "bg-gradient-to-br from-purple-500 to-pink-600",
-    badge: "BETA",
-    status: "beta" as const,
+    badge: "VISUAL AI",
+    badgeColor: "bg-purple-600/20 text-purple-300 border-purple-600/30",
     features: [
       "Instant image analysis for technical troubleshooting",
       "Auto-detection of device issues, broken cables, error lights",
-      "Automated restart & recovery via API commands",
+      "Automated restart & recovery via API commands", 
       "Targeted step-by-step troubleshooting prompts",
       "Visual diagnostic reports and issue documentation",
       "Integration with device management systems",
@@ -71,6 +65,62 @@ const products = [
     ],
   },
 ];
+
+// Custom gradient border card component
+function ElegantProductCard({ product, index }: { product: any; index: number }) {
+  return (
+    <div
+      className="animate-on-scroll relative group h-full"
+      style={{ animationDelay: `${index * 0.2}s` }}
+    >
+      {/* Main Card with Gradient Border - Using existing pattern */}
+      <div className="gradient-card h-full hover:scale-[1.02] transition-all duration-500 group">
+        <div className="gradient-card-content h-full">
+          {/* Header Section */}
+          <div className="mb-6">
+            <div className="flex items-start justify-between mb-4">
+              <h3 className="font-bold text-white text-2xl leading-tight">
+                {product.name}
+              </h3>
+              {/* Badge positioned inline */}
+              <span className={`inline-flex items-center px-3 py-1 rounded-full font-semibold text-xs ${product.badgeColor} flex-shrink-0 ml-3`}>
+                {product.badge}
+              </span>
+            </div>
+            
+            <p className="text-gray-300 text-base leading-relaxed">
+              {product.description}
+            </p>
+          </div>
+
+          {/* Features List with Better Styling */}
+          <div className="space-y-4">
+            <h4 className="font-semibold text-white text-sm uppercase tracking-wide opacity-80">
+              Key Capabilities
+            </h4>
+            <ul className="space-y-3">
+              {product.features.map((feature: string, idx: number) => (
+                <li
+                  key={idx}
+                  className="flex items-start gap-3 text-gray-300 text-sm leading-relaxed group-hover:text-gray-200 transition-colors duration-300"
+                >
+                  {/* Custom bullet with gradient */}
+                  <div className="flex-shrink-0 mt-2">
+                    <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-purple-500 to-cyan-400"></div>
+                  </div>
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Hover Effect Overlay */}
+          <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 absolute inset-0 bg-gradient-to-t from-purple-600/5 to-transparent pointer-events-none rounded-2xl"></div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 const integrations = [
   { name: "WhatsApp Business", icon: MessageSquare, color: "text-green-500" },
@@ -83,7 +133,7 @@ const integrations = [
 
 export function ProductsSection() {
   return (
-    <section id="products" className="bg-dark-100 section-padding">
+    <section id="products" className="bg-black section-padding">
       <div className="container-custom">
         {/* Section Header */}
         <div className="mx-auto mb-16 max-w-4xl text-center">
@@ -107,20 +157,57 @@ export function ProductsSection() {
         {/* Products Grid */}
         <div className="gap-8 grid grid-cols-1 lg:grid-cols-3 mb-16">
           {products.map((product, index) => (
-            <div
-              key={product.id}
-              className="animate-on-scroll"
-              style={{ animationDelay: `${index * 0.2}s` }}
-            >
-              <ProductCard
-                product={product}
-                className="group relative h-full"
-              />
-              <div className="-top-3 -right-3 z-10 absolute">
-                <StatusBadge status={product.status} />
-              </div>
-            </div>
+            <ElegantProductCard 
+              key={product.id} 
+              product={product} 
+              index={index} 
+            />
           ))}
+        </div>
+
+        {/* Enterprise Benefits with matching style */}
+        <div className="mb-12 text-center">
+          <h3 className="mb-4 font-bold text-white text-2xl md:text-3xl">
+            Enterprise-Grade Performance
+          </h3>
+          <p className="mx-auto mb-8 max-w-2xl text-gray-300">
+            Built for scale, security, and reliability that enterprise customers demand
+          </p>
+
+          <div className="gap-6 grid grid-cols-1 md:grid-cols-3 mx-auto max-w-4xl">
+            {[
+              {
+                icon: <Zap className="w-6 h-6" />,
+                title: "99.9% Uptime SLA",
+                description: "Enterprise-grade infrastructure with guaranteed availability and performance",
+                color: "text-blue-400"
+              },
+              {
+                icon: <MessageSquare className="w-6 h-6" />,
+                title: "SOC 2 Compliant", 
+                description: "Bank-level security standards with end-to-end encryption and audit trails",
+                color: "text-green-400"
+              },
+              {
+                icon: <BarChart3 className="w-6 h-6" />,
+                title: "Unlimited Scale",
+                description: "Handle millions of conversations simultaneously with auto-scaling infrastructure", 
+                color: "text-purple-400"
+              }
+            ].map((benefit, index) => (
+              <div key={benefit.title} className="gradient-card group hover:scale-105 transition-all duration-300">
+                <div className="gradient-card-content text-center">
+                  <div className={`flex justify-center items-center mx-auto mb-4 rounded-xl w-12 h-12 ${benefit.color} bg-white/10`}>
+                    {benefit.icon}
+                  </div>
+                  <h4 className="mb-2 font-semibold text-white">{benefit.title}</h4>
+                  <p className="text-gray-300 text-sm leading-relaxed">
+                    {benefit.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Integration Channels */}
@@ -155,44 +242,6 @@ export function ProductsSection() {
               </div>
             ))}
           </div>
-        </div>
-
-        {/* Key Benefits */}
-        <div className="gap-8 grid grid-cols-1 md:grid-cols-3 mx-auto max-w-5xl">
-          {[
-            {
-              title: "Agentic Workflows",
-              description:
-                "AI that doesn't just respond—it acts autonomously across multi-step processes",
-              icon: "🤖",
-            },
-            {
-              title: "Omni-Channel Unity",
-              description:
-                "Seamless context preservation across voice, chat, and visual interactions",
-              icon: "🔗",
-            },
-            {
-              title: "Enterprise Ready",
-              description:
-                "Built for scale with enterprise security, compliance, and reliability",
-              icon: "🏢",
-            },
-          ].map((benefit, index) => (
-            <div
-              key={benefit.title}
-              className="text-center animate-on-scroll"
-              style={{ animationDelay: `${index * 0.2}s` }}
-            >
-              <div className="mb-4 text-4xl">{benefit.icon}</div>
-              <h4 className="mb-3 font-bold text-white text-xl">
-                {benefit.title}
-              </h4>
-              <p className="text-gray-300 leading-relaxed">
-                {benefit.description}
-              </p>
-            </div>
-          ))}
         </div>
       </div>
     </section>

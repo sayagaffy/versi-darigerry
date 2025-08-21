@@ -1,3 +1,4 @@
+// src/components/layout/header.tsx
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -27,7 +28,13 @@ export function Header() {
     const elementId = href.replace("#", "");
     const element = document.getElementById(elementId);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      // Account for fixed header height when scrolling
+      const headerHeight = 80; // Approximate header height
+      const elementPosition = element.offsetTop - headerHeight;
+      window.scrollTo({
+        top: elementPosition,
+        behavior: "smooth"
+      });
     }
     setIsMobileMenuOpen(false);
   };
@@ -35,17 +42,22 @@ export function Header() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-black/90 backdrop-blur-sm" : "bg-transparent"
+        isScrolled
+          ? "bg-black/90 backdrop-blur-sm border-b border-white/10"
+          : "bg-transparent"
       }`}
+      // CRITICAL: Set explicit height so other components can reference it
+      style={{ height: '80px' }}
     >
-      <nav className="container-custom">
-        <div className="flex justify-between items-center py-4">
+      <nav className="container-custom h-full">
+        <div className="flex justify-between items-center h-full py-4">
           {/* Logo - EXACT match to reference */}
           <div className="flex items-center space-x-2">
-            <div className="flex justify-center items-center bg-white rounded-lg w-8 h-8">
-              <span className="font-bold text-black text-lg">∞</span>
-            </div>
-            <span className="font-bold text-white text-xl">bicarapintar</span>
+            <img 
+  src="/assets/icons/logo-full-white.svg" 
+  alt="BicaraPintar Logo" 
+  className="h-6 w-auto"
+/>
           </div>
 
           {/* Desktop Navigation - SIMPLIFIED */}
@@ -88,7 +100,7 @@ export function Header() {
 
         {/* Mobile Menu - SIMPLIFIED */}
         {isMobileMenuOpen && (
-          <div className="md:hidden top-full right-0 left-0 absolute bg-black/95 backdrop-blur-sm border-white/10 border-t">
+          <div className="md:hidden absolute top-full right-0 left-0 bg-black/95 backdrop-blur-sm border-white/10 border-t">
             <div className="py-6 container-custom">
               <div className="flex flex-col space-y-4">
                 {navigation.map((item) => (
@@ -118,5 +130,4 @@ export function Header() {
   );
 }
 
-// Remove FloatingHeader - not in reference design
 export { Header as default };

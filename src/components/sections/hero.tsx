@@ -44,6 +44,7 @@ export function HeroSection() {
       id="hero"
       ref={heroRef}
       className="relative flex justify-center items-center min-h-screen overflow-hidden animate-on-scroll"
+      style={{ paddingTop: '90px' }}
     >
       {/* Background Effects */}
       <div className="absolute inset-0 bg-gradient-hero" />
@@ -66,7 +67,7 @@ export function HeroSection() {
           {/* Badge */}
           <div className="flex justify-center mb-8">
             <GradientBadge
-              text="🚀 Enterprise AI Platform - Powered by Agentic Intelligence"
+              text="Enterprise AI Platform - Powered by Agentic Intelligence"
               className="text-sm md:text-base"
             />
           </div>
