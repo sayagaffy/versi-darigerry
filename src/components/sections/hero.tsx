@@ -113,7 +113,7 @@ export function HeroSection() {
               rightIcon={<ArrowRight size={20} />}
               className="px-8 py-4 text-lg"
             >
-              Start Free Trial
+              Schedule Demo
             </CTAButton>
 
             <Button
@@ -123,7 +123,7 @@ export function HeroSection() {
               href="#demo"
               className="px-8 py-4 text-lg"
             >
-              Watch Demo
+              Contact Us
             </Button>
           </div>
 
